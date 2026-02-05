@@ -1,61 +1,24 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Wynagrodzeń 2026</title>
+    <title>PureText Utility</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); width: 100%; max-width: 450px; text-align: center; }
-        h2 { color: #1a73e8; margin-bottom: 20px; }
-        input { width: 100%; padding: 15px; margin: 15px 0; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 18px; box-sizing: border-box; transition: 0.3s; }
-        input:focus { border-color: #1a73e8; outline: none; }
-        button { width: 100%; padding: 15px; background: #1a73e8; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        button:hover { background: #1557b0; }
-        .result { margin-top: 25px; padding: 20px; background: #f8f9fa; border-left: 5px solid #28a745; border-radius: 8px; display: none; text-align: left; }
-        .ad-box { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; width: 100%; }
+        body { background: #0f172a; color: white; font-family: sans-serif; }
+        textarea { background: #1e293b; border: 1px solid #334155; }
     </style>
 </head>
-<body>
-
-<div class="card">
-    <h2>💰 Kalkulator Netto/Brutto</h2>
-    <p>Podaj kwotę Brutto (PLN):</p>
-    <input type="number" id="bruttoInput" placeholder="Np. 6500">
-    <button onclick="calculateSalary()">Oblicz wypłatę</button>
-
-    <div id="resultBox" class="result">
-        <div style="font-size: 20px; color: #28a745;"><strong>Na rękę: <span id="nettoValue">0</span> PLN</strong></div>
-        <div style="margin-top: 10px; font-size: 14px; color: #666;">
-            Składki ZUS: <span id="zusValue">0</span> PLN<br>
-            Podatek dochodowy: <span id="taxValue">0</span> PLN
+<body class="flex flex-col items-center p-8">
+    <h1 class="text-4xl font-black mb-8 italic">PureText<span class="text-blue-500">.</span></h1>
+    <div class="w-full max-w-xl space-y-4">
+        <textarea id="txt" class="w-full h-64 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500" placeholder="Paste messy text..."></textarea>
+        <div class="grid grid-cols-2 gap-4">
+            <button onclick="document.getElementById('txt').value = document.getElementById('txt').value.replace(/\r?\n|\r/g, ' ').replace(/\s\s+/g, ' ').trim()" class="bg-blue-600 py-4 rounded-xl font-bold uppercase">Clean</button>
+            <button onclick="navigator.clipboard.writeText(document.getElementById('txt').value)" class="bg-slate-700 py-4 rounded-xl font-bold uppercase">Copy</button>
         </div>
+        <div class="mt-10 p-10 border-2 border-dashed border-slate-800 rounded-3xl text-center opacity-30 text-[10px] uppercase tracking-widest">Ad Space</div>
     </div>
-
-    <div class="ad-box">
-        <p style="font-size: 10px; color: #bbb; text-transform: uppercase;">Reklama</p>
-        <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
-            <iframe data-aa='2426001' src='//acceptable.a-ads.com/2425908/?size=Adaptive' style='border:0; padding:0; width:100%; height:250px; overflow:hidden; display: block; margin: auto'></iframe>
-        </div>
-    </div>
-</div>
-
-<script>
-    function calculateSalary() {
-        const brutto = parseFloat(document.getElementById('bruttoInput').value);
-        if (brutto > 0) {
-            // Приблизний розрахунок (Umowa o pracę)
-            const netto = (brutto * 0.73).toFixed(2);
-            const zus = (brutto * 0.1371).toFixed(2);
-            const tax = (brutto - netto - zus).toFixed(2);
-            
-            document.getElementById('nettoValue').innerText = netto;
-            document.getElementById('zusValue').innerText = zus;
-            document.getElementById('taxValue').innerText = tax;
-            document.getElementById('resultBox').style.display = 'block';
-        }
-    }
-</script>
-
 </body>
 </html>
